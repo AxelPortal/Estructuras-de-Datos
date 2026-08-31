@@ -42,6 +42,18 @@ struct DoublyLinkedList {
         head = new_node;
     }
 
+    void push_back(data_type value) {
+        DoublyLinkedNode<data_type>* new_node = new DoublyLinkedNode<data_type>(value, nullptr,tail);
+
+        if (head==nullptr) {
+           head = new_node;
+        }
+        else {
+            tail -> next = new_node;
+        }
+        tail=new_node;
+    }
+
     void erase(DoublyLinkedNode<data_type>* node) {
         // Eliminamos un nodo "node" no nulo
         if (node == head) {
