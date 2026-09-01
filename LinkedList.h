@@ -99,6 +99,23 @@ struct LinkedList {
             erase(current);
         }
     }
+    void reverse() {
+    LinkedNode<data_type>* previous = nullptr;
+    LinkedNode<data_type>* current = head;
+
+    tail = head;
+
+    while (current != nullptr) {
+        LinkedNode<data_type>* next = current->next;
+
+        current->next = previous;
+
+        previous = current;
+        current = next;
+    }
+
+    head = previous;
+}
 
     void print() {
         LinkedNode<data_type>* current = head;
@@ -108,6 +125,8 @@ struct LinkedList {
         }
         cout << '\n';
     }
+
+
 };
 
 
