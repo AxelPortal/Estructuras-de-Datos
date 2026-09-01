@@ -132,6 +132,78 @@ struct DoublyLinkedList {
         }
         cout << '\n';
     }
+    void unlink(DoublyLinkedNode<data_type>* node) {
+        if (node->prev) node->prev->next = node->next;
+        else head = node->next;
+
+        if (node->next) node->next->prev = node->prev;
+        else tail = node->prev;
+    }
+
+            void insert_before(DoublyLinkedNode<data_type>* node, DoublyLinkedNode<data_type>* ref) {
+        if (ref->prev == node) return; // Ya está a la izquierda
+
+        unlink(node);
+
+        node->prev = ref->prev;
+        node->next = ref;
+
+        if (ref->prev) ref->prev->next = node;
+        else head = node;
+
+        ref->prev = node;
+    }
+
+
+
+
+    // Intercambia la posición de dos nodos en O(1)
+    void swap_nodes(DoublyLinkedNode<data_type>* u, DoublyLinkedNode<data_type>* v) {
+        if (u == v) return;
+
+        // Casos donde son adyacentes
+        if (u->next == v) {
+            unlink(u);
+            // Insertar u después de v
+            u->prev = v;
+            u->next = v->next;
+            if (v->next) v->next->prev = u;
+            else tail = u;
+            v->next = u;
+        } else if (v->next == u) {
+            unlink(v);
+            // Insertar v después de u
+            v->prev = u;
+            v->next = u->next;
+            if (u->next) u->next->prev = v;
+            else tail = v;
+            u->next = v;
+        } else {
+            // Nodos no adyacentes
+            DoublyLinkedNode<data_type>* u_prev = u->prev;
+            DoublyLinkedNode<data_type>* u_next = u->next;
+            DoublyLinkedNode<data_type>* v_prev = v->prev;
+            DoublyLinkedNode<data_type>* v_next = v->next;
+
+            unlink(u);
+            unlink(v);
+
+            // Colocar v en el lugar original de u
+            v->prev = u_prev;
+            v->next = u_next;
+            if (u_prev) u_prev->next = v;
+            else head = v;
+            if (u_next) u_next->prev = v;
+            else tail = v;
+
+            // Colocar u en el lugar original de v
+            u->prev = v_prev;
+            u->next = v_next;
+            if (v_prev) v_prev->next = u;
+            else head = u;
+            if (v_next) v_next->prev = u;
+            else tail = u;
+        }
 };
 
 
