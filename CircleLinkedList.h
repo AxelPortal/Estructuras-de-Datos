@@ -93,6 +93,27 @@ struct CircularLinkedList {
     head = tail;
     tail = temp;
 }
+
+void josephus(CircularLinkedList<int> &list, int k) {
+
+    LinkedNode<int>* current = list.head;
+    LinkedNode<int>* prev = list.tail;
+    int i=1;
+    while (!list.empty()) {
+        LinkedNode<int>* next_node=current->next;
+        if (i%k==0) {
+            cout<<current->data<<" ";
+            list.erase(prev);
+            current = next_node;
+        }
+        else {
+            current=current->next;
+            prev=prev->next;
+        }
+        i++;
+    }
+}
+
 };
 
 
