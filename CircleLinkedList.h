@@ -70,6 +70,29 @@ struct CircularLinkedList {
     bool empty() {
         return head == nullptr;
     }
+
+    void reverse() {
+    if (head == nullptr || head == tail) {
+        return;
+    }
+
+    LinkedNode<data_type>* previous = tail;
+    LinkedNode<data_type>* current = head;
+
+    do {
+        LinkedNode<data_type>* next = current->next;
+
+        current->next = previous;
+
+        previous = current;
+        current = next;
+
+    } while (current != head);
+
+    LinkedNode<data_type>* temp = head;
+    head = tail;
+    tail = temp;
+}
 };
 
 
