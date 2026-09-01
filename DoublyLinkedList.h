@@ -107,6 +107,22 @@ struct DoublyLinkedList {
             delete node;
         }
     }
+    void reverse() {
+    DoublyLinkedNode<data_type>* current = head;
+
+    while (current != nullptr) {
+        DoublyLinkedNode<data_type>* temp = current->next;
+
+        current->next = current->prev;
+        current->prev = temp;
+
+        current = temp;
+    }
+
+    DoublyLinkedNode<data_type>* temp = head;
+    head = tail;
+    tail = temp;
+}
 
     void print() {
         DoublyLinkedNode<data_type>* current = head;
