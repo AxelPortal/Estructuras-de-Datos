@@ -7,4 +7,7 @@ add_executable(Estructuras main.cpp
         LinkedList.h
         DoublyLinkedList.h
         CircleLinkedList.h
-        Vector.h)
+        Vector.h
+        Queue.h
+        Stack.h
+        Deque.h)
