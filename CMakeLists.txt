@@ -10,4 +10,5 @@ add_executable(Estructuras main.cpp
         Vector.h
         Queue.h
         Stack.h
-        Deque.h)
+        Deque.h
+        HashTable.h)
