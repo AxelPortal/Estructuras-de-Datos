@@ -92,6 +92,28 @@ public:
             cout << "End bucket\n";
         }
     }
+
+    value_type get(const key_type &key) const {
+        int chain_pos = _hash(key);
+        int at = _find_index(chain_pos, key);
+        if (at != -1) {
+            return chains[chain_pos][at].second;
+        }
+        return value_type(); // Retorna 0 por defecto
+    }
+
+/*
+//Hash mas rapido
+    int _hash(key_type key) const {
+        unsigned int x = static_cast<unsigned int>(key);
+        x = ((x >> 16) ^ x) * 0x45d9f3b;
+        x = ((x >> 16) ^ x) * 0x45d9f3b;
+        x = (x >> 16) ^ x;
+        return x % m;
+    }
+*/
+
+
 };
 
 #endif //ESTRUCTURAS_HASHTABLE_H
