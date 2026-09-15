@@ -105,10 +105,12 @@ public:
 /*
 //Hash mas rapido
     int _hash(key_type key) const {
-        unsigned int x = static_cast<unsigned int>(key);
-        x = ((x >> 16) ^ x) * 0x45d9f3b;
-        x = ((x >> 16) ^ x) * 0x45d9f3b;
-        x = (x >> 16) ^ x;
+        unsigned long long x = key;
+        x ^= (x >> 30);
+        x *= 0xbf58476d1ce4e5b9ULL;
+        x ^= (x >> 27);
+        x *= 0x94d049bb133111ebULL;
+        x ^= (x >> 31);
         return x % m;
     }
 */
