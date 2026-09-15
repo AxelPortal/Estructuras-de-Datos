@@ -113,6 +113,21 @@ public:
     }
 */
 
+/* Hash polinomial (strings)
+int _hash(const key_type &key) const {
+    const int B = 311;
+    const int MOD = 1e9 + 7;
+    long long hash_value = 0;
+    
+    for (unsigned char c : key) {
+        hash_value = (hash_value * B + c) % MOD;
+    }
+    
+    return hash_value % m;
+}
+
+*/
+
 
 };
 
