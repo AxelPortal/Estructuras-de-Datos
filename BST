@@ -1,0 +1,267 @@
+using namespace std;
+
+template<typename data_type>
+struct BST {
+public:
+    // =========================================================
+    // 1. ESTRUCTURA DEL NODO
+    // =========================================================
+    struct TreeNode {
+        data_type data;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode *parent; // Puntero al padre vital para sucesor/predecesor
+
+        TreeNode(data_type data = data_type(),
+                 TreeNode* left = nullptr,
+                 TreeNode* right = nullptr,
+                 TreeNode* parent = nullptr) :
+            data(data), left(left), right(right), parent(parent) {}
+    };
+
+    TreeNode *root;
+
+    // =========================================================
+    // 2. CONSTRUCTOR Y DESTRUCTOR
+    // =========================================================
+    BST() {
+        root = nullptr; 
+    }
+
+    ~BST() {
+        clear(root);
+    }
+
+    // =========================================================
+    // 3. ESTADO Y TAMAÑO
+    // =========================================================
+    bool is_empty() {
+        return root == nullptr;
+    }
+
+    int size() {
+        return size_aux(root);
+    }
+
+    // =========================================================
+    // 4. BÚSQUEDA Y MÁXIMOS/MÍNIMOS
+    // =========================================================
+    bool search(data_type key) {
+        return find_node(key) != nullptr;
+    }
+
+    TreeNode* find_node(data_type key) {
+        TreeNode* current = root;
+        while (current != nullptr) {
+            if (current->data == key) return current;
+            if (current->data > key) current = current->left;
+            else current = current->right;
+        }
+        return nullptr;
+    }
+
+    data_type min_element() {
+        if (root == nullptr) return data_type();
+        TreeNode* current = root;
+        while (current->left != nullptr) current = current->left;
+        return current->data;
+    }
+
+    data_type max_element() {
+        if (root == nullptr) return data_type();
+        TreeNode* current = root;
+        while (current->right != nullptr) current = current->right;
+        return current->data;
+    }
+
+    // =========================================================
+    // 5. INSERCIÓN Y ELIMINACIÓN
+    // =========================================================
+    void insert(data_type key) {
+        TreeNode* newNode = new TreeNode(key);
+        if (root == nullptr) {
+            root = newNode;
+            return;
+        }
+
+        TreeNode* current = root;
+        TreeNode* parent = nullptr;
+
+        while (current != nullptr) {
+            parent = current; 
+            if (key < current->data) current = current->left;
+            else if (key > current->data) current = current->right;
+            else {
+                delete newNode; // Evitar duplicados
+                return;
+            }
+        }
+
+        newNode->parent = parent; 
+        if (key < parent->data) parent->left = newNode;
+        else parent->right = newNode;
+    }
+
+    void remove(data_type key) {
+        TreeNode* target = find_node(key);
+        if (target != nullptr) {
+            removeNode(target);
+        }
+    }
+
+    // =========================================================
+    // 6. RECORRIDOS E IMPRESIÓN
+    // =========================================================
+    void in_order_traversal() {
+        cout << "[ ";
+        in_order_aux(root);
+        cout << "]" << endl;
+    }
+
+    void print_subtree_inorder(TreeNode* node) {
+        if (node == nullptr) return;
+        cout << "[ ";
+        in_order_aux(node);
+        cout << "]" << endl;
+    }
+
+    void print_subtree_inorder(data_type key) {
+        TreeNode* target = find_node(key);
+        if (target != nullptr) {
+            print_subtree_inorder(target);
+        } else {
+            cout << "[ Nodo " << key << " no encontrado ]" << endl;
+        }
+    }
+
+    // =========================================================
+    // 7. SUCESOR Y PREDECESOR
+    // =========================================================
+    TreeNode* get_successor(TreeNode* node) {
+        if (node == nullptr) return nullptr;
+        if (node->right != nullptr) {
+            TreeNode* current = node->right;
+            while (current->left != nullptr) current = current->left;
+            return current;
+        }
+        TreeNode* p = node->parent;
+        while (p != nullptr && node == p->right) {
+            node = p;
+            p = p->parent;
+        }
+        return p;
+    }
+
+    TreeNode* get_successor(data_type key) {
+        return get_successor(find_node(key));
+    }
+
+    TreeNode* get_predecessor(TreeNode* node) {
+        if (node == nullptr) return nullptr;
+        if (node->left != nullptr) {
+            TreeNode* current = node->left;
+            while (current->right != nullptr) current = current->right;
+            return current;
+        }
+        TreeNode* p = node->parent;
+        while (p != nullptr && node == p->left) {
+            node = p;
+            p = p->parent;
+        }
+        return p;
+    }
+
+    TreeNode* get_predecessor(data_type key) {
+        return get_predecessor(find_node(key));
+    }
+
+// =========================================================
+// FUNCIONES PRIVADAS (Auxiliares recursivos y lógica interna)
+// =========================================================
+private:
+    void in_order_aux(TreeNode* node) {
+        if (node != nullptr) {
+            in_order_aux(node->left);
+            cout << node->data << " ";
+            in_order_aux(node->right);
+        }
+    }
+
+    int size_aux(TreeNode* node) {
+        if (node == nullptr) return 0;
+        return 1 + size_aux(node->left) + size_aux(node->right);
+    }
+
+    void clear(TreeNode* node) {
+        if (node != nullptr) {
+            clear(node->left);
+            clear(node->right);
+            delete node; 
+        }
+    }
+
+    void removeNode(TreeNode* node) {
+        // Caso A: Dos hijos
+        if (node->left != nullptr && node->right != nullptr) {
+            TreeNode* successor = get_successor(node);
+            node->data = successor->data; 
+            removeNode(successor);        
+            return;
+        }
+
+        // Caso B y C: 0 o 1 hijo
+        TreeNode* child = (node->left != nullptr) ? node->left : node->right;
+        
+        if (child != nullptr) {
+            child->parent = node->parent; 
+        }
+
+        if (node == root) {
+            root = child;
+        } else {
+            if (node == node->parent->left) node->parent->left = child;
+            else node->parent->right = child;
+        }
+        
+        delete node; 
+    }
+};
+
+// =========================================================
+// MAIN PARA PROBAR LA ESTRUCTURA
+// =========================================================
+int main() {
+    BST<int> miArbol;
+
+    miArbol.insert(50);
+    miArbol.insert(30);
+    miArbol.insert(70);
+    miArbol.insert(20);
+    miArbol.insert(40);
+    miArbol.insert(60);
+    miArbol.insert(80);
+
+    cout << "Arbol completo (Inorden): ";
+    miArbol.in_order_traversal();
+
+    cout << "Minimo: " << miArbol.min_element() << endl;
+    cout << "Maximo: " << miArbol.max_element() << endl;
+    cout << "Tamano: " << miArbol.size() << endl;
+
+    cout << "Subarbol del nodo 30: ";
+    miArbol.print_subtree_inorder(30);
+
+    auto suc = miArbol.get_successor(40);
+    if(suc) cout << "Sucesor de 40: " << suc->data << endl;
+
+    auto pred = miArbol.get_predecessor(40);
+    if(pred) cout << "Predecesor de 40: " << pred->data << endl;
+
+    cout << "\nEliminando el 30 (nodo con dos hijos)..." << endl;
+    miArbol.remove(30);
+    
+    cout << "Arbol despues de eliminar: ";
+    miArbol.in_order_traversal();
+
+    return 0;
+}
