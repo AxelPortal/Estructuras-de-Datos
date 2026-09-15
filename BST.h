@@ -4,7 +4,7 @@
 
 #ifndef BST_BST_H
 #define BST_BST_H
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 template<typename data_type>
@@ -82,7 +82,7 @@ public:
     }
 
     // =========================================================
-    // 5. INSERCIÓN Y ELIMINACIÓN
+    // 5. INSERCIÓN Y ELIMINACIÓN (Método CLRS con Transplant)
     // =========================================================
     void insert(data_type key) {
         TreeNode* newNode = new TreeNode(key);
@@ -112,13 +112,33 @@ public:
     void remove(data_type key) {
         TreeNode* target = find_node(key);
         if (target != nullptr) {
-            removeNode(target);
+            erase(target); // Llama a la nueva lógica de eliminación
         }
     }
 
     // =========================================================
     // 6. RECORRIDOS E IMPRESIÓN
     // =========================================================
+    void print_tree() { // Imprime la estructura simple (Post-orden sin texto extra)
+        post_order_aux(root);
+        cout << endl;
+    }
+
+    void pre_order() {
+        pre_order_aux(root);
+        cout << endl;
+    }
+
+    void in_order() {
+        in_order_aux(root);
+        cout << endl;
+    }
+
+    void post_order() {
+        post_order_aux(root);
+        cout << endl;
+    }
+
     void in_order_traversal() {
         cout << "[ ";
         in_order_aux(root);
@@ -186,11 +206,27 @@ public:
 // FUNCIONES PRIVADAS (Auxiliares recursivos y lógica interna)
 // =========================================================
 private:
+    void pre_order_aux(TreeNode* node) {
+        if (node != nullptr) {
+            cout << node->data << " ";  
+            pre_order_aux(node->left);  
+            pre_order_aux(node->right); 
+        }
+    }
+
     void in_order_aux(TreeNode* node) {
         if (node != nullptr) {
-            in_order_aux(node->left);
-            cout << node->data << " ";
-            in_order_aux(node->right);
+            in_order_aux(node->left);   
+            cout << node->data << " ";  
+            in_order_aux(node->right);  
+        }
+    }
+
+    void post_order_aux(TreeNode* node) {
+        if (node != nullptr) {
+            post_order_aux(node->left);   
+            post_order_aux(node->right);  
+            cout << node->data << " ";    
         }
     }
 
@@ -207,30 +243,43 @@ private:
         }
     }
 
-    void removeNode(TreeNode* node) {
-        // Caso A: Dos hijos
-        if (node->left != nullptr && node->right != nullptr) {
-            TreeNode* successor = get_successor(node);
-            node->data = successor->data;
-            removeNode(successor);
-            return;
-        }
-
-        // Caso B y C: 0 o 1 hijo
-        TreeNode* child = (node->left != nullptr) ? node->left : node->right;
-
-        if (child != nullptr) {
-            child->parent = node->parent;
-        }
-
-        if (node == root) {
-            root = child;
+    // Lógica para reemplazar subárboles (Apoyo para Erase)
+    void transplant(TreeNode* u, TreeNode* v) {
+        if (u->parent == nullptr) {
+            root = v;
+        } else if (u == u->parent->left) {
+            u->parent->left = v;
         } else {
-            if (node == node->parent->left) node->parent->left = child;
-            else node->parent->right = child;
+            u->parent->right = v;
         }
+        if (v != nullptr) {
+            v->parent = u->parent;
+        }
+    }
 
-        delete node;
+    // Lógica principal de eliminación CLRS
+    void erase(TreeNode* z) {
+        if (z->left == nullptr) {
+            transplant(z, z->right);
+        } else if (z->right == nullptr) {
+            transplant(z, z->left);
+        } else {
+            // Buscar sucesor
+            TreeNode* y = z->right;
+            while (y->left != nullptr) {
+                y = y->left;
+            }
+
+            if (y->parent != z) {
+                transplant(y, y->right);
+                y->right = z->right;
+                y->right->parent = y;
+            }
+            transplant(z, y);
+            y->left = z->left;
+            y->left->parent = y;
+        }
+        delete z; // Liberar memoria
     }
 };
 
