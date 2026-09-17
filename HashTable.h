@@ -103,7 +103,7 @@ public:
     }
 
 /*
-//Hash mas rapido
+//Hash mas rapido (sirve para int, long, char, unsigned)
     int _hash(key_type key) const {
         unsigned long long x = key;
         x ^= (x >> 30);
