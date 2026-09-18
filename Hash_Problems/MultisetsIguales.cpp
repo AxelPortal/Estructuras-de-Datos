@@ -1,9 +1,10 @@
 //
-// Created by axelr on 13/09/2026.
+// Created by axelr on 18/09/2026.
 //
 
-#ifndef ESTRUCTURAS_HASHTABLE_H
-#define ESTRUCTURAS_HASHTABLE_H
+//
+// Created by axelr on 18/09/2026.
+//
 
 #include <iostream>
 #include <vector>
@@ -62,18 +63,6 @@ public:
         return _find_index(chain_pos, key) != -1;
     }
 
-    int _hash(key_type key) const {
-        const int B = 311;
-        const int MOD = 1e9 + 7;
-        int hash_value = 0;
-        while (key > 0) {
-            int d = key % 10;
-            hash_value = (1ll * hash_value * B + (d + 1)) % MOD;
-            key /= 10;
-        }
-        return hash_value % m;
-    }
-
     int size() const {
         return _size;
     }
@@ -101,8 +90,6 @@ public:
         return value_type(); // Retorna 0 por defecto
     }
 
-/*
-//Hash mas rapido (sirve para int, long, char, unsigned)
     int _hash(key_type key) const {
         unsigned long long x = key;
         x ^= (x >> 30);
@@ -112,24 +99,43 @@ public:
         x ^= (x >> 31);
         return x % m;
     }
-*/
-
-/* Hash polinomial (strings)
-int _hash(const key_type &key) const {
-    const int B = 311;
-    const int MOD = 1e9 + 7;
-    long long hash_value = 0;
-    
-    for (unsigned char c : key) {
-        hash_value = (hash_value * B + c) % MOD;
-    }
-    
-    return hash_value % m;
-}
-
-*/
-
 
 };
 
-#endif //ESTRUCTURAS_HASHTABLE_H
+int main() {
+    cin.tie(0) -> sync_with_stdio(false);
+    int a,b;
+    cin>>a;
+    my_map<int,int> map(2*a+7);
+
+    for (int i=0;i<a;i++) {
+        int x;
+        cin>>x;
+        map[x]++;
+    }
+
+    cin>>b;
+
+    if (a!=b) {
+        cout<<"NO";
+        return 0;
+    }
+
+    for (int i=0;i<b;i++) {
+        int y;
+        cin>>y;
+        map[y]--;
+        if (map.get(y)==0) {
+            map.erase(y);
+        }
+    }
+
+    if (map.empty())
+        cout<<"SI";
+
+    else
+        cout<<"NO";
+
+
+    return 0;
+}

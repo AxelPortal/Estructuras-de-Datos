@@ -11,4 +11,15 @@ add_executable(Estructuras main.cpp
         Queue.h
         Stack.h
         Deque.h
-        HashTable.h)
+        HashTable.h
+        Hash_Problems/SubCadenaSinRepetidos.cpp
+        Hash_Problems/JoyasYPiedras.cpp
+        Hash_Problems/NotaDeRescate.cpp
+        Hash_Problems/MultisetsIguales.cpp
+        Hash_Problems/SumaDeDos.cpp
+        Hash_Problems/PrimeroNoRepetido.cpp
+        Hash_Problems/InterseccionDeArreglos.cpp
+        Hash_Problems/SimuladorDeDiccionario.cpp
+        Hash_Problems/AgrupandoAnagramas.cpp
+        Hash_Problems/TodosLosDuplicados.cpp
+        Hash_Problems/VecinosCercanos.cpp)
