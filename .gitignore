@@ -1,0 +1,25 @@
+# Archivos ejecutables de Windows
+*.exe
+
+# Objetos y librerías compiladas
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+
+# Carpetas de compilación y salida (CMake y CLion)
+build/
+cmake-build-*/
+bin/
+out/
+
+# Archivos de configuración del IDE (CLion / IntelliJ)
+.idea/
+*.iws
+*.iml
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
