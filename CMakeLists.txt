@@ -37,5 +37,6 @@ foreach(problem_file ${HASH_PROBLEMS})
             AVL_Problems/BloquesDeEntradas.cpp
             AVL_Problems/AlturasEnUnAvl.cpp
             AVL_Problems/RotacionesAMano.cpp
-            Recursion_Problems/Mudanza.cpp)
+            Recursion_Problems/Mudanza.cpp
+            AVL_Problems/SumaEnRango.cpp)
 endforeach()
