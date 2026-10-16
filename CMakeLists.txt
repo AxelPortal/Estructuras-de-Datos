@@ -12,14 +12,22 @@ add_executable(Estructuras main.cpp
         Stack.h
         Deque.h
         HashTable.h
-        Hash_Problems/SubCadenaSinRepetidos.cpp
-        Hash_Problems/JoyasYPiedras.cpp
-        Hash_Problems/NotaDeRescate.cpp
-        Hash_Problems/MultisetsIguales.cpp
-        Hash_Problems/SumaDeDos.cpp
-        Hash_Problems/PrimeroNoRepetido.cpp
-        Hash_Problems/InterseccionDeArreglos.cpp
-        Hash_Problems/SimuladorDeDiccionario.cpp
-        Hash_Problems/AgrupandoAnagramas.cpp
-        Hash_Problems/TodosLosDuplicados.cpp
-        Hash_Problems/VecinosCercanos.cpp)
+        Heap.h)
+
+file(GLOB HASH_PROBLEMS "Hash_Problems/*.cpp")
+foreach(problem_file ${HASH_PROBLEMS})
+    get_filename_component(problem_name ${problem_file} NAME_WE)
+    add_executable(${problem_name} ${problem_file}
+            AVL_Problems/EsUnAVL.cpp
+            Recursion_Problems/TorresDeHanoi.cpp
+            Recursion_Problems/PagoExacto.cpp
+            Heap_Problems/SimuladorDeHeap.cpp
+            Heap_Problems/ValidacionDeHeap.cpp
+            Heap_Problems/ConstruirHeap.cpp
+            Heap_Problems/KesimoMayorEnUnStream.cpp
+            AVL_Problems/ConstruirUnAvl.cpp
+            AVL_Problems/ContarRotaciones.cpp
+            AVL_Problems/VecinoMasCercano.cpp
+            AVL_Problems/ReservasDeSala.cpp
+            AVL_Problems/LaModaEnVivo.cpp)
+endforeach()
