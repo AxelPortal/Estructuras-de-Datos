@@ -29,5 +29,13 @@ foreach(problem_file ${HASH_PROBLEMS})
             AVL_Problems/ContarRotaciones.cpp
             AVL_Problems/VecinoMasCercano.cpp
             AVL_Problems/ReservasDeSala.cpp
-            AVL_Problems/LaModaEnVivo.cpp)
+            AVL_Problems/LaModaEnVivo.cpp
+            AVL_Problems/RankingDePuntajes.cpp
+            AVL_Problems/KesimoMenor.cpp
+            AVL_Problems/ContarEnRango.cpp
+            Recursion_Problems/RepartoDeCaramelos.cpp
+            AVL_Problems/BloquesDeEntradas.cpp
+            AVL_Problems/AlturasEnUnAvl.cpp
+            AVL_Problems/RotacionesAMano.cpp
+            Recursion_Problems/Mudanza.cpp)
 endforeach()
