@@ -38,5 +38,15 @@ foreach(problem_file ${HASH_PROBLEMS})
             AVL_Problems/AlturasEnUnAvl.cpp
             AVL_Problems/RotacionesAMano.cpp
             Recursion_Problems/Mudanza.cpp
-            AVL_Problems/SumaEnRango.cpp)
+            AVL_Problems/SumaEnRango.cpp
+            Graph_Problems/PerimetroDelTerreno.cpp
+            Graph_Problems/PuentesDeKoningsberg.cpp
+            Graph_Problems/SeguidoresMutuos.cpp
+            Graph_Problems/AgendaDeContactos.cpp
+            Graph_Problems/CablesEntreServidores.cpp
+            Graph_Problems/AmigosEnComun.cpp
+            BFSProblems/Laberinto.cpp
+            Graph_Problems/LasJarras.cpp
+            Graph_Problems/TriosDeAmigos.cpp
+            Graph_Problems/EscaleraDePalabras.cpp)
 endforeach()
