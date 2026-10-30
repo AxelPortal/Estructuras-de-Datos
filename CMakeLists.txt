@@ -56,5 +56,9 @@ foreach(problem_file ${HASH_PROBLEMS})
             BFSProblems/Hospitales.cpp
             BFSProblems/EquiposRivales.cpp
             BFSProblems/RompiendoParedes.cpp
+            BFSProblems/SerpientesYEscaleras.cpp
+            BFSProblems/CadaQuienConUnJefe.cpp
+            BFSProblems/EscaparDelFuego.cpp
+            BFSProblems/Cerradura.cpp
     )
 endforeach()
