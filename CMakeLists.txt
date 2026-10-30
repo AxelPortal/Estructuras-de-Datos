@@ -48,5 +48,13 @@ foreach(problem_file ${HASH_PROBLEMS})
             BFSProblems/Laberinto.cpp
             Graph_Problems/LasJarras.cpp
             Graph_Problems/TriosDeAmigos.cpp
-            Graph_Problems/EscaleraDePalabras.cpp)
+            Graph_Problems/EscaleraDePalabras.cpp
+            Graph_Problems/SeguidoresMutuosAlter.cpp
+            Graph_Problems/ArbolCompletoSimple.cpp
+            Graph_Problems/TriangulosDeDependencia.cpp
+            Graph_Problems/InspeccionEnLaGrillaImplicita.cpp
+            BFSProblems/Hospitales.cpp
+            BFSProblems/EquiposRivales.cpp
+            BFSProblems/RompiendoParedes.cpp
+    )
 endforeach()
