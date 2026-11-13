@@ -12,7 +12,8 @@ add_executable(Estructuras main.cpp
         Stack.h
         Deque.h
         HashTable.h
-        Heap.h)
+        Heap.h
+)
 
 file(GLOB HASH_PROBLEMS "Hash_Problems/*.cpp")
 foreach(problem_file ${HASH_PROBLEMS})
@@ -60,5 +61,17 @@ foreach(problem_file ${HASH_PROBLEMS})
             BFSProblems/CadaQuienConUnJefe.cpp
             BFSProblems/EscaparDelFuego.cpp
             BFSProblems/Cerradura.cpp
+            DFSProblems/Islas.cpp
+            DFSProblems/EsMiSuperior.cpp
+            DFSProblems/ClasificacionDeAristas.cpp
+            Dijkstra_Problems/SingleSourceShortestPath.cpp
+            Dijkstra_Problems/RedCompleta.cpp
+            DFSProblems/MiniumPath.cpp
+            PL6_1/ElExplorador.cpp
+            PL6_1/LaSedeDelCampus.cpp
+            PL6_1/LosEdificiosMasLejanos.cpp
+            PL6_2/RutaHastaElEmpleado.cpp
+            PL6_2/IdaYVuelta.cpp
+            PL6_2/LiderDeLaRed.cpp
     )
 endforeach()
